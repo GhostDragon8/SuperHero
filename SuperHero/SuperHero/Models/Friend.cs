@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,9 @@ namespace SuperHero.Models
 {
     public class Friend
     {
+        [Key]
         public int MemberID { get; set; }
-        public virtual Member Member { get; set; }
-
+        
         public DateTime DateFriended { get; set; }
     }
 

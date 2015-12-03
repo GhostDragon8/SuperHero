@@ -50,6 +50,9 @@ namespace SuperHero.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MemberID,HeroName,UserName,DateJoined,LastLogin,ProfileID")] Member member)
         {
+            //auto pick current date
+            member.DateJoined = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 db.Member.Add(member);
@@ -57,7 +60,7 @@ namespace SuperHero.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MemberID = new SelectList(db.Profiles, "ProfID", "Bio", member.MemberID);
+            ViewBag.MemberID = new SelectList(db.Profiles, "ProfID", "Bio", member.ID);
             return View(member);
         }
 
@@ -73,7 +76,7 @@ namespace SuperHero.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MemberID = new SelectList(db.Profiles, "ProfID", "Bio", member.MemberID);
+            ViewBag.MemberID = new SelectList(db.Profiles, "ProfID", "Bio", member.ID);
             return View(member);
         }
 
@@ -90,7 +93,7 @@ namespace SuperHero.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MemberID = new SelectList(db.Profiles, "ProfID", "Bio", member.MemberID);
+            ViewBag.MemberID = new SelectList(db.Profiles, "ProfID", "Bio", member.ID);
             return View(member);
         }
 

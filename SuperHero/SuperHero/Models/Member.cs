@@ -10,7 +10,7 @@ namespace SuperHero.Models
     public class Member
     {
         [Key]
-        public int MemberID { get; set; }
+        public int ID { get; set; }
         //Hero name to login
         [Display(Name = "Hero Name")]
         public string HeroName { get; set; }
@@ -20,13 +20,17 @@ namespace SuperHero.Models
         public string UserName { get; set; }
 
         [Display(Name="Date Joined")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime DateJoined { get; set; }
 
         [Display(Name = "Last Login")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime LastLogin { get; set; }
 
         public int ProfileID { get; set; }
         public virtual Profile Profile { get; set; }
+
+     
     }
 
     public class MemberDbContext: DbContext
@@ -39,7 +43,7 @@ namespace SuperHero.Models
             modelBuilder.Entity<Member>()
                 .HasOptional<Profile>(m => m.Profile)
                 .WithRequired(m => m.Member)
-                .Map(p => p.MapKey("MemberID"));
+                .Map(p => p.MapKey("ID"));
         }
 
         public System.Data.Entity.DbSet<SuperHero.Models.Profile> Profiles { get; set; }
